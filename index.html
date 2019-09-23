@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/Departamentos_Mendoza_1.js"></script>
+        <script src="data/Caminos_Provinciales_2.js"></script>
+        <script src="data/Rutas_Provinciales_3.js"></script>
+        <script src="data/Rutas_Nacionales_4.js"></script>
+        <script src="data/PULVERIZACIONESAGROVANTS2019_5.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:26, minZoom:1
+        }).fitBounds([[-34.43220156002443,-70.57368429289525],[-31.736261579962,-66.84473659745747]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        var layer_googlesat_0 = L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
+            opacity: 1.0,
+            attribution: '',
+        });
+        layer_googlesat_0;
+        map.addLayer(layer_googlesat_0);
+        function pop_Departamentos_Mendoza_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Area'] !== null ? Autolinker.link(String(feature.properties['Area'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Perimeter'] !== null ? Autolinker.link(String(feature.properties['Perimeter'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Departa_'] !== null ? Autolinker.link(String(feature.properties['Departa_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Departa_id'] !== null ? Autolinker.link(String(feature.properties['Departa_id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Prov'] !== null ? Autolinker.link(String(feature.properties['Prov'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Depto'] !== null ? Autolinker.link(String(feature.properties['Depto'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Clave'] !== null ? Autolinker.link(String(feature.properties['Clave'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Departa'] !== null ? Autolinker.link(String(feature.properties['Departa'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Cabecer'] !== null ? Autolinker.link(String(feature.properties['Cabecer'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Longitude_WGS84'] !== null ? Autolinker.link(String(feature.properties['Longitude_WGS84'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Latitude_WGS84'] !== null ? Autolinker.link(String(feature.properties['Latitude_WGS84'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Province'] !== null ? Autolinker.link(String(feature.properties['Province'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Departamentos_Mendoza_1_0() {
+            return {
+                pane: 'pane_Departamentos_Mendoza_1',
+                opacity: 1,
+                color: 'rgba(189,193,202,1.0)',
+                dashArray: '1,5',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Departamentos_Mendoza_1');
+        map.getPane('pane_Departamentos_Mendoza_1').style.zIndex = 401;
+        map.getPane('pane_Departamentos_Mendoza_1').style['mix-blend-mode'] = 'normal';
+        var layer_Departamentos_Mendoza_1 = new L.geoJson(json_Departamentos_Mendoza_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Departamentos_Mendoza_1',
+            layerName: 'layer_Departamentos_Mendoza_1',
+            pane: 'pane_Departamentos_Mendoza_1',
+            onEachFeature: pop_Departamentos_Mendoza_1,
+            style: style_Departamentos_Mendoza_1_0,
+        });
+        bounds_group.addLayer(layer_Departamentos_Mendoza_1);
+        map.addLayer(layer_Departamentos_Mendoza_1);
+        function pop_Caminos_Provinciales_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nombre'] !== null ? Autolinker.link(String(feature.properties['Nombre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Tipo'] !== null ? Autolinker.link(String(feature.properties['Tipo'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Jurisdiccion'] !== null ? Autolinker.link(String(feature.properties['Jurisdiccion'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Clase'] !== null ? Autolinker.link(String(feature.properties['Clase'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Transitable'] !== null ? Autolinker.link(String(feature.properties['Transitable'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Observaciones'] !== null ? Autolinker.link(String(feature.properties['Observaciones'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Hoja'] !== null ? Autolinker.link(String(feature.properties['Hoja'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Caminos_Provinciales_2_0() {
+            return {
+                pane: 'pane_Caminos_Provinciales_2',
+                opacity: 1,
+                color: 'rgba(167,158,136,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Caminos_Provinciales_2');
+        map.getPane('pane_Caminos_Provinciales_2').style.zIndex = 402;
+        map.getPane('pane_Caminos_Provinciales_2').style['mix-blend-mode'] = 'normal';
+        var layer_Caminos_Provinciales_2 = new L.geoJson(json_Caminos_Provinciales_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Caminos_Provinciales_2',
+            layerName: 'layer_Caminos_Provinciales_2',
+            pane: 'pane_Caminos_Provinciales_2',
+            onEachFeature: pop_Caminos_Provinciales_2,
+            style: style_Caminos_Provinciales_2_0,
+        });
+        bounds_group.addLayer(layer_Caminos_Provinciales_2);
+        map.addLayer(layer_Caminos_Provinciales_2);
+        function pop_Rutas_Provinciales_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nombre'] !== null ? Autolinker.link(String(feature.properties['Nombre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Tipo'] !== null ? Autolinker.link(String(feature.properties['Tipo'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Jurisdiccion'] !== null ? Autolinker.link(String(feature.properties['Jurisdiccion'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Clase'] !== null ? Autolinker.link(String(feature.properties['Clase'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Transitable'] !== null ? Autolinker.link(String(feature.properties['Transitable'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Observaciones'] !== null ? Autolinker.link(String(feature.properties['Observaciones'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Hoja'] !== null ? Autolinker.link(String(feature.properties['Hoja'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Rutas_Provinciales_3_0() {
+            return {
+                pane: 'pane_Rutas_Provinciales_3',
+                opacity: 1,
+                color: 'rgba(219,147,42,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Rutas_Provinciales_3');
+        map.getPane('pane_Rutas_Provinciales_3').style.zIndex = 403;
+        map.getPane('pane_Rutas_Provinciales_3').style['mix-blend-mode'] = 'normal';
+        var layer_Rutas_Provinciales_3 = new L.geoJson(json_Rutas_Provinciales_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Rutas_Provinciales_3',
+            layerName: 'layer_Rutas_Provinciales_3',
+            pane: 'pane_Rutas_Provinciales_3',
+            onEachFeature: pop_Rutas_Provinciales_3,
+            style: style_Rutas_Provinciales_3_0,
+        });
+        bounds_group.addLayer(layer_Rutas_Provinciales_3);
+        map.addLayer(layer_Rutas_Provinciales_3);
+        function pop_Rutas_Nacionales_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nombre'] !== null ? Autolinker.link(String(feature.properties['Nombre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Tipo'] !== null ? Autolinker.link(String(feature.properties['Tipo'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Jurisdiccion'] !== null ? Autolinker.link(String(feature.properties['Jurisdiccion'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Clase'] !== null ? Autolinker.link(String(feature.properties['Clase'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Transitable'] !== null ? Autolinker.link(String(feature.properties['Transitable'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Observaciones'] !== null ? Autolinker.link(String(feature.properties['Observaciones'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Hoja'] !== null ? Autolinker.link(String(feature.properties['Hoja'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Rutas_Nacionales_4_0() {
+            return {
+                pane: 'pane_Rutas_Nacionales_4',
+                opacity: 1,
+                color: 'rgba(219,30,42,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Rutas_Nacionales_4');
+        map.getPane('pane_Rutas_Nacionales_4').style.zIndex = 404;
+        map.getPane('pane_Rutas_Nacionales_4').style['mix-blend-mode'] = 'normal';
+        var layer_Rutas_Nacionales_4 = new L.geoJson(json_Rutas_Nacionales_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Rutas_Nacionales_4',
+            layerName: 'layer_Rutas_Nacionales_4',
+            pane: 'pane_Rutas_Nacionales_4',
+            onEachFeature: pop_Rutas_Nacionales_4,
+            style: style_Rutas_Nacionales_4_0,
+        });
+        bounds_group.addLayer(layer_Rutas_Nacionales_4);
+        map.addLayer(layer_Rutas_Nacionales_4);
+        function pop_PULVERIZACIONESAGROVANTS2019_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LAYER'] !== null ? Autolinker.link(String(feature.properties['LAYER'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">nombre</th>\
+                        <td>' + (feature.properties['nombre'] !== null ? Autolinker.link(String(feature.properties['nombre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">area_1</th>\
+                        <td>' + (feature.properties['area_1'] !== null ? Autolinker.link(String(feature.properties['area_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Campo'] !== null ? Autolinker.link(String(feature.properties['Campo'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Propietari</strong><br />' + (feature.properties['Propietari'] !== null ? Autolinker.link(String(feature.properties['Propietari'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cultivo</th>\
+                        <td>' + (feature.properties['Cultivo'] !== null ? Autolinker.link(String(feature.properties['Cultivo'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Superficie'] !== null ? Autolinker.link(String(feature.properties['Superficie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Departa_ma</th>\
+                        <td>' + (feature.properties['Departa_ma'] !== null ? Autolinker.link(String(feature.properties['Departa_ma'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Province_m'] !== null ? Autolinker.link(String(feature.properties['Province_m'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PULVERIZACIONESAGROVANTS2019_5_0(feature) {
+            switch(String(feature.properties['Cultivo'])) {
+                case 'ajo':
+                    return {
+                pane: 'pane_PULVERIZACIONESAGROVANTS2019_5',
+                opacity: 1,
+                color: 'rgba(247,247,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(85,214,201,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'cebolla':
+                    return {
+                pane: 'pane_PULVERIZACIONESAGROVANTS2019_5',
+                opacity: 1,
+                color: 'rgba(247,247,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(188,41,237,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'girasol':
+                    return {
+                pane: 'pane_PULVERIZACIONESAGROVANTS2019_5',
+                opacity: 1,
+                color: 'rgba(247,247,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(109,200,18,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'glifo':
+                    return {
+                pane: 'pane_PULVERIZACIONESAGROVANTS2019_5',
+                opacity: 1,
+                color: 'rgba(247,247,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(234,190,127,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'lechuga':
+                    return {
+                pane: 'pane_PULVERIZACIONESAGROVANTS2019_5',
+                opacity: 1,
+                color: 'rgba(247,247,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(239,54,116,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'maiz':
+                    return {
+                pane: 'pane_PULVERIZACIONESAGROVANTS2019_5',
+                opacity: 1,
+                color: 'rgba(247,247,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(199,204,106,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'NDVI':
+                    return {
+                pane: 'pane_PULVERIZACIONESAGROVANTS2019_5',
+                opacity: 1,
+                color: 'rgba(247,247,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,22,194,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'papa':
+                    return {
+                pane: 'pane_PULVERIZACIONESAGROVANTS2019_5',
+                opacity: 1,
+                color: 'rgba(247,247,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(57,85,207,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'tomate':
+                    return {
+                pane: 'pane_PULVERIZACIONESAGROVANTS2019_5',
+                opacity: 1,
+                color: 'rgba(247,247,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(71,15,212,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'vid':
+                    return {
+                pane: 'pane_PULVERIZACIONESAGROVANTS2019_5',
+                opacity: 1,
+                color: 'rgba(247,247,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(83,159,202,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'zanahoria':
+                    return {
+                pane: 'pane_PULVERIZACIONESAGROVANTS2019_5',
+                opacity: 1,
+                color: 'rgba(247,247,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(127,236,176,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'zapallo':
+                    return {
+                pane: 'pane_PULVERIZACIONESAGROVANTS2019_5',
+                opacity: 1,
+                color: 'rgba(247,247,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(230,58,35,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_PULVERIZACIONESAGROVANTS2019_5',
+                opacity: 1,
+                color: 'rgba(247,247,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(55,211,49,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_PULVERIZACIONESAGROVANTS2019_5');
+        map.getPane('pane_PULVERIZACIONESAGROVANTS2019_5').style.zIndex = 405;
+        map.getPane('pane_PULVERIZACIONESAGROVANTS2019_5').style['mix-blend-mode'] = 'normal';
+        var layer_PULVERIZACIONESAGROVANTS2019_5 = new L.geoJson(json_PULVERIZACIONESAGROVANTS2019_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PULVERIZACIONESAGROVANTS2019_5',
+            layerName: 'layer_PULVERIZACIONESAGROVANTS2019_5',
+            pane: 'pane_PULVERIZACIONESAGROVANTS2019_5',
+            onEachFeature: pop_PULVERIZACIONESAGROVANTS2019_5,
+            style: style_PULVERIZACIONESAGROVANTS2019_5_0,
+        });
+        bounds_group.addLayer(layer_PULVERIZACIONESAGROVANTS2019_5);
+        map.addLayer(layer_PULVERIZACIONESAGROVANTS2019_5);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'PULVERIZACIONES AGROVANTS 2019<br /><table><tr><td style="text-align: center;"><img src="legend/PULVERIZACIONESAGROVANTS2019_5_ajo0.png" /></td><td>ajo</td></tr><tr><td style="text-align: center;"><img src="legend/PULVERIZACIONESAGROVANTS2019_5_cebolla1.png" /></td><td>cebolla</td></tr><tr><td style="text-align: center;"><img src="legend/PULVERIZACIONESAGROVANTS2019_5_girasol2.png" /></td><td>girasol</td></tr><tr><td style="text-align: center;"><img src="legend/PULVERIZACIONESAGROVANTS2019_5_glifo3.png" /></td><td>glifo</td></tr><tr><td style="text-align: center;"><img src="legend/PULVERIZACIONESAGROVANTS2019_5_lechuga4.png" /></td><td>lechuga</td></tr><tr><td style="text-align: center;"><img src="legend/PULVERIZACIONESAGROVANTS2019_5_maiz5.png" /></td><td>maiz</td></tr><tr><td style="text-align: center;"><img src="legend/PULVERIZACIONESAGROVANTS2019_5_NDVI6.png" /></td><td>NDVI</td></tr><tr><td style="text-align: center;"><img src="legend/PULVERIZACIONESAGROVANTS2019_5_papa7.png" /></td><td>papa</td></tr><tr><td style="text-align: center;"><img src="legend/PULVERIZACIONESAGROVANTS2019_5_tomate8.png" /></td><td>tomate</td></tr><tr><td style="text-align: center;"><img src="legend/PULVERIZACIONESAGROVANTS2019_5_vid9.png" /></td><td>vid</td></tr><tr><td style="text-align: center;"><img src="legend/PULVERIZACIONESAGROVANTS2019_5_zanahoria10.png" /></td><td>zanahoria</td></tr><tr><td style="text-align: center;"><img src="legend/PULVERIZACIONESAGROVANTS2019_5_zapallo11.png" /></td><td>zapallo</td></tr><tr><td style="text-align: center;"><img src="legend/PULVERIZACIONESAGROVANTS2019_5_12.png" /></td><td></td></tr></table>': layer_PULVERIZACIONESAGROVANTS2019_5,'<img src="legend/Rutas_Nacionales_4.png" /> Rutas_Nacionales': layer_Rutas_Nacionales_4,'<img src="legend/Rutas_Provinciales_3.png" /> Rutas_Provinciales': layer_Rutas_Provinciales_3,'<img src="legend/Caminos_Provinciales_2.png" /> Caminos_Provinciales': layer_Caminos_Provinciales_2,'<img src="legend/Departamentos_Mendoza_1.png" /> Departamentos_Mendoza': layer_Departamentos_Mendoza_1,"google sat": layer_googlesat_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_Departamentos_Mendoza_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Departa'] !== null?String('<div style="color: #bebebe; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Departa']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Departamentos_Mendoza_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        map.addControl(new L.Control.Search({
+            layer: layer_PULVERIZACIONESAGROVANTS2019_5,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'nombre'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        resetLabels([layer_Departamentos_Mendoza_1]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Departamentos_Mendoza_1]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Departamentos_Mendoza_1]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Departamentos_Mendoza_1]);
+        });
+        </script>
+    </body>
+</html>
